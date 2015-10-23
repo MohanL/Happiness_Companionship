@@ -1,8 +1,7 @@
-Twitter-Sentiment-Analysis
+Happiness and Companionship
 ==========================
+Research on using social media behaviors to predict a user's sentiment
+includes: graphy and python-twitter.
 
-Python script to analyse Twitter user's mental outlook / outward facing sentiment over time.
-
-Exports sentiment analysis graph and statistics to local html file.
-
-Requires graphy and python-twitter.
+first update:
+https://docs.google.com/presentation/d/1fL0llfqCWDu_7_nMFhcfSP-Vzpr48qB513JwdLpOvSE/edit?usp=sharing

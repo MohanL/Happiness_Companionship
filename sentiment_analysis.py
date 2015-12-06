@@ -56,15 +56,12 @@ def sentimentCount(tweets):
             neutral_count += 1
         else:
             positive_count += 1
-
     return (negative_count, neutral_count, positive_count)
 
 
-def analyzeSentiments( tweets_with_sentiment, username ):
+def analyzeSentiments(tweets_with_sentiment, username):
     happiness = averageSentiments(tweets_with_sentiment)
-
     counts = sentimentCount(tweets_with_sentiment)
-
     graph = makeSentimentGraph(tweets_with_sentiment)
 
     output = ""

@@ -11,9 +11,7 @@ import cmd
 import sentiment_analysis
 import dev_keys
 
-
 twitterURL = "http://twitter.com"
-
 
 def fetch(user):
     data = {}
@@ -48,7 +46,6 @@ def getSentiment(tweets):
     response = urllib2.urlopen(url, encoded_str).read()
     return json.loads(response)
 
-
 def getTweetSentiments( username=None ):
     assert( username )
     tweet_list = fetch( username )
@@ -63,7 +60,6 @@ def getTweetSentiments( username=None ):
     tweet_body = {'data':tweet_text_list}
     tweets_with_sentiment = getSentiment(tweet_body)
     return getSentiment(tweet_body)
-
 
 def analyze( sentiments, username ):
     print( 'analyzing %s...' %username )

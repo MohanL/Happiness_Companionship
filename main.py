@@ -24,7 +24,13 @@ def fetch(user):
     total = 0
     while True:
         #statuses = api.GetUserTimeline( screen_name=user, count=200, max_id=max_id )
-        statuses = api.GetUserTimeline( user_id=user, count=200, max_id=max_id )
+        try:
+            statuses = api.GetUserTimeline( user_id=user, count=200, max_id=max_id )
+        except Exception, e:
+            print(" - failed (maybe a duplicate key?): %s" % e)
+            print(user)
+            data[-1] = ""
+            return  data.values()# bleh
         newCount = ignCount = 0
         for s in statuses:
             if s.id in data:
@@ -56,6 +62,8 @@ def getTweetSentiments( username=None ):
             tweet_text_list.append({"text":str(contents)})
         except UnicodeEncodeError:
             continue
+        except AttributeError:
+            tweet_text_list.append({"text":""})
 
     tweet_body = {'data':tweet_text_list}
     tweets_with_sentiment = getSentiment(tweet_body)
@@ -81,7 +89,7 @@ def enumerate_twitter_accounts():
         users[js['user_name']]['tid'] = js['twitter_id']
         users[js['user_name']]['married?'] = "."
         users[js['user_name']]['happiness'] = -1
-    print(users)
+#    print(users)
     return users
 
 

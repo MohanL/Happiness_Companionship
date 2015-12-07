@@ -19,9 +19,10 @@ def averageSentiments(tweets):
             polarity_total += int(float(tweet["polarity"]))
             count = count + 1
         polarity_total_without_neutral += int(float(tweet["polarity"]))
-
-    return (float(polarity_total) / count, float(polarity_total_without_neutral) / float(len(tl)))
-
+    try:    
+        return (float(polarity_total) / count, float(polarity_total_without_neutral) / float(len(tl)))
+    except:
+        return(2,2)
 
 def makeSentimentGraph(tweets):
     tl = tweets['data']

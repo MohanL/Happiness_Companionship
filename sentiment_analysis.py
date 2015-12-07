@@ -21,7 +21,7 @@ def averageSentiments(tweets):
         polarity_total_without_neutral += int(float(tweet["polarity"]))
     try:    
         return (float(polarity_total) / count, float(polarity_total_without_neutral) / float(len(tl)))
-    except:
+    except: # fixed deleted twitter accounts
         return(2,2)
 
 def makeSentimentGraph(tweets):

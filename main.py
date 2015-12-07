@@ -95,6 +95,8 @@ def enumerate_twitter_accounts():
 
 if __name__ == '__main__':
     twitter_dict = enumerate_twitter_accounts()
+    fi = open('processed.txt','w')
+
     i = 0
     for key, value in twitter_dict.items():
         username = value['tid']
@@ -104,11 +106,15 @@ if __name__ == '__main__':
         i = i+1
         print(i)
         print(key, "--", value)
+        fi.write(str(key) + " " + str(value['happiness']) + " " + str(value['married?']) + "\n")
+
+    fi.close()
+
         #print( 'Happiness by extremes: %s' %extremes )
         #print( 'Happiness by overall: %s' %overall )
-   # print(twitter_dict)
-    with open('processed.json' ,'w') as nf:
-        json.dump(result, nf)
+
+    #with open('processed.json' ,'w') as nf:
+    #    json.dump(result, nf)
 
 '''
     while (True):

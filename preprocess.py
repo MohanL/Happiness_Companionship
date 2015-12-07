@@ -2,7 +2,7 @@ import json
 file_list = ["data1.json","data2.json","data3.json","data4.json","data5.json","data6.json", \
 "data7.json","data8.json","data9.json","data10.json", "data11.json","data12.json","data13.json","data14.json", \
 "data15.json"]
-unwanted = ["display_details", "layout_version", "email_searchable", "flagged", "layout_version"] # unneeded fields
+unwanted = ["display_details", "layout_version", "email_searchable", "email_public", "flagged", "layout_version "] # unneeded fields
 head = []
 with open("all_data.json", "w") as outfile:
     for f in file_list:
@@ -20,13 +20,17 @@ items_set = set()
 
 for js in jsons[0]:
     # only add unseen items (referring to 'title' as key)
-    if "display_details" in js: 
-        del js["display_details"]
-    if not js['user_name'] in items_set:
-        # mark as seen
-        items_set.add(js['user_name'])
-        # add to results
-        result.append(js)
+    if 'twitter_id'  not in js:
+        del js
+    else:
+        for u in unwanted:
+            if u in js: 
+                del js[u]
+        if not js['user_name'] in items_set:
+            # mark as seen
+            items_set.add(js['user_name'])
+            # add to results
+            result.append(js)
 
 print len(result)
 

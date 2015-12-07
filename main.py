@@ -23,7 +23,8 @@ def fetch(user):
     max_id = None
     total = 0
     while True:
-        statuses = api.GetUserTimeline( screen_name=user, count=200, max_id=max_id )
+        #statuses = api.GetUserTimeline( screen_name=user, count=200, max_id=max_id )
+        statuses = api.GetUserTimeline( user_id=user, count=200, max_id=max_id )
         newCount = ignCount = 0
         for s in statuses:
             if s.id in data:
@@ -38,7 +39,6 @@ def fetch(user):
             break
         max_id = min([s.id for s in statuses]) - 1
     return data.values()
-
 
 def getSentiment(tweets):
     url = 'http://www.sentiment140.com/api/bulkClassifyJson?appid=chesterholtz@gmail.com'
@@ -70,8 +70,33 @@ def analyze( sentiments, username ):
 def makeGraph( sentiments, username ):
     sentiment_analysis.analyzeSentiments( sentiments, username )
 
+def enumerate_twitter_accounts():
+    users = {}
+    with open('preprocessed_data.json') as f:
+        # load json objects to dictionaries
+        jsons = map(json.loads, f)
+
+    for js in jsons[0]:
+        users[js['user_name']] = {}
+        users[js['user_name']]['tid'] = js['twitter_id']
+        users[js['user_name']]['married?'] = "."
+        users[js['user_name']]['happiness'] = -1
+    return users
+
 
 if __name__ == '__main__':
+    twitter_dict = enumerate_twitter_accounts()
+    for key, value in twitter_dict.items():
+        print(key, "--", value)
+        username = value['tid']
+        sentiments = getTweetSentiments( username )
+        extremes, overall = analyze( sentiments, username )
+        value['happiness'] = extremes
+        #print( 'Happiness by extremes: %s' %extremes )
+        #print( 'Happiness by overall: %s' %overall )
+    print(twitter_dict)
+
+'''
     while (True):
         username = raw_input('\nEnter username as @username: ')
         if len( username ) == 0:
@@ -81,10 +106,12 @@ if __name__ == '__main__':
             username = username[1:]
         sentiments = getTweetSentiments( username )
         extremes, overall = analyze( sentiments, username )
-        makeGraph( sentiments, username )
+        #makeGraph( sentiments, username )
         print( 'Happiness by extremes: %s' %extremes )
         print( 'Happiness by overall: %s' %overall )
         print( "Created file at "+username+"_analysis.html with full analysis" )
         more = raw_input( '\nContinue? (y/n) ' )
         if more != 'y' and more != 'Y':
             break
+
+'''

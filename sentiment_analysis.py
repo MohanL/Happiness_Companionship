@@ -8,7 +8,6 @@ from graphy.backends import google_chart_api
 
 import dev_keys
 
-
 def averageSentiments(tweets):
     polarity_total = 0
     polarity_total_without_neutral = 0
@@ -39,9 +38,10 @@ def makeSentimentGraph(tweets):
         data_pairs.append([x, y])
 
     chart = google_chart_api.LineChart(data_y[:1500])
+    chart.bottom.label = "tweets"
+    chart.left.label = "sentiment"
 
     return chart.display.Img(600, 200)
-
 
 def sentimentCount(tweets):
     positive_count = 0

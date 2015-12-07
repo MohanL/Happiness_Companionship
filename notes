@@ -1,2 +1,0 @@
-ctrl o to kill runaway cat
-cat preprocessed_data.json | python -m json.tool > output.txt

@@ -33,8 +33,8 @@ def fetch(user):
                 data[s.id] = s
                 newCount += 1
         total += newCount
-        print( "Fetched %d new, %d old, %d total" %(
-                newCount, ignCount, total ) )
+        #print( "Fetched %d new, %d old, %d total" %(
+        #        newCount, ignCount, total ) )
         if newCount == 0:
             break
         max_id = min([s.id for s in statuses]) - 1
@@ -86,15 +86,20 @@ def enumerate_twitter_accounts():
 
 if __name__ == '__main__':
     twitter_dict = enumerate_twitter_accounts()
+    i = 0
     for key, value in twitter_dict.items():
-        print(key, "--", value)
         username = value['tid']
         sentiments = getTweetSentiments( username )
         extremes, overall = analyze( sentiments, username )
         value['happiness'] = extremes
+        i = i+1
+        print(i)
+        print(key, "--", value)
         #print( 'Happiness by extremes: %s' %extremes )
         #print( 'Happiness by overall: %s' %overall )
-    print(twitter_dict)
+   # print(twitter_dict)
+    with open('processed.json' ,'w') as nf:
+        json.dump(result, nf)
 
 '''
     while (True):

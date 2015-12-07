@@ -81,6 +81,7 @@ def enumerate_twitter_accounts():
         users[js['user_name']]['tid'] = js['twitter_id']
         users[js['user_name']]['married?'] = "."
         users[js['user_name']]['happiness'] = -1
+    print(users)
     return users
 
 

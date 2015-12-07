@@ -22,6 +22,8 @@ for js in jsons[0]:
     # only add unseen items (referring to 'title' as key)
     if 'twitter_id'  not in js:
         del js
+    elif js['twitter_id'] == "":
+        del js
     else:
         for u in unwanted:
             if u in js: 
